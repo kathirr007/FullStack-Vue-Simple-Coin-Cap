@@ -1,6 +1,8 @@
 const express = require("express")
 const axios = require("axios")
 
+require("dotenv").config()
+
 const app = express()
 
 const port = process.env.PORT || 3000
@@ -16,7 +18,7 @@ app.get("/api/coins", function (req, res) {
           convert: "USD",
         },
         headers: {
-          "X-CMC_PRO_API_KEY": "1fb34390-755d-4236-9155-f9651c138454",
+          "X-CMC_PRO_API_KEY": process.env.coinmarketApiKey,
         },
         json: true,
         gzip: true,
