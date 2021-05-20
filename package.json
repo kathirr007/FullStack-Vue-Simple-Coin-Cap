@@ -4,6 +4,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "start": "node src/server",
     "serve": "vue-cli-service serve",
     "dev": "vue-cli-service serve",
     "start-dev": "concurrently \"node src/server\" \"npm run dev\"",

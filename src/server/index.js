@@ -7,6 +7,10 @@ const app = express()
 
 const port = process.env.PORT || 3000
 
+if (process.env.NODE_ENV == 'production') {
+  app.use(express.static(path.join(__dirname, '/dist')))
+}
+
 app.get('/api/coins', function (req, res) {
   axios
     .get(
