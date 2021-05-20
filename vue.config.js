@@ -1,4 +1,8 @@
 module.exports = {
+  publicPath:
+    process.env.NODE_ENV === 'production'
+      ? 'https://crypto-coin-cap.herokuapp.com/'
+      : '',
   devServer: {
     proxy: {
       '/api': {
