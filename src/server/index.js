@@ -9,9 +9,17 @@ const app = express()
 
 const port = process.env.PORT || 3000
 
+const staticFileMiddleware = express.static(path.join(__dirname + '/dist'))
+
 if (process.env.NODE_ENV == 'production') {
-  app.use(history())
-  app.use(express.static(path.join(__dirname, '/dist')))
+  app.use(staticFileMiddleware)
+  app.use(
+    history({
+      disableDotRule: true,
+      verbose: true
+    })
+  )
+  app.use(staticFileMiddleware)
 }
 
 app.get('/api/coins', function (req, res) {
@@ -32,7 +40,6 @@ app.get('/api/coins', function (req, res) {
       }
     )
     .then(function (response) {
-      console.log(`API call response: ${response.data}`)
       res.setHeader('Cache-Control', 'no-cache')
       res.json(response.data)
     })
