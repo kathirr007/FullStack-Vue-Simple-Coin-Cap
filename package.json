@@ -4,7 +4,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "start": "node src/server",
+    "start": "node server",
     "serve": "vue-cli-service serve",
     "dev": "vue-cli-service serve",
     "start-dev": "concurrently \"node src/server\" \"npm run dev\"",
@@ -15,6 +15,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "dotenv": "^9.0.2",
     "express": "^4.17.1",
     "semantic-ui-css": "^2.4.1",
     "vue": "^2.6.11",
@@ -32,7 +33,6 @@
     "@vue/eslint-config-prettier": "^6.0.0",
     "babel-eslint": "^10.1.0",
     "concurrently": "^6.1.0",
-    "dotenv": "^9.0.2",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^6.2.2",
