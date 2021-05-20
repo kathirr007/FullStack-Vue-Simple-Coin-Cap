@@ -1,13 +1,13 @@
-const express = require("express")
-const axios = require("axios")
+const express = require('express')
+const axios = require('axios')
 
 const app = express()
 
 const port = process.env.PORT || 3000
 
-app.get("/api/coins", function (req, res) {
+app.get('/api/coins', function (req, res) {
   axios
-    .get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest")
+    .get('https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest')
     .then(function (response) {
       console.log(`API call response: ${response}`)
     })

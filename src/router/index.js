@@ -1,28 +1,59 @@
-import Vue from "vue"
-import VueRouter from "vue-router"
-import Home from "../views/Home.vue"
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import HomePage from '@/views/home/HomePage.vue'
+import AboutPage from '@/views/about/AboutPage.vue'
+import NotFoundPage from '@/views/not-found/NotFoundPage.vue'
+import CoinDetailsPage from '@/views/coin-details/CoinDetailsPage.vue'
+import store from '@/store'
 
 Vue.use(VueRouter)
 
+const checkIfCoinExists = (to, from, next) => {
+  const slug = to.params.slug
+  const coins = store.getters.coins
+
+  if (!coins.length) {
+    store.watch(
+      state => state.coins,
+      () => {
+        if (store.getters.coinDataFromSlug(slug)) next()
+        else next('/not-found')
+      }
+    )
+  } else {
+    if (store.getters.coinDataFromSlug(slug)) next()
+    else next('/not-found')
+  }
+}
+
 const routes = [
   {
-    path: "/",
-    name: "Home",
-    component: Home,
+    path: '*',
+    name: 'NotFoundPage',
+    component: NotFoundPage
   },
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
+    path: '/',
+    name: 'HomePage',
+    component: HomePage
   },
+  {
+    path: '/about',
+    name: 'AboutPage',
+    component: AboutPage
+  },
+  {
+    path: '/currency/:slug',
+    name: 'CoinDetailsPage',
+    component: CoinDetailsPage,
+    props: true,
+    beforeEnter: checkIfCoinExists
+  }
 ]
 
 const router = new VueRouter({
-  routes,
+  mode: 'history',
+  routes
 })
 
 export default router
